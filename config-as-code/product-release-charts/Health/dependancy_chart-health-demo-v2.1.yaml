@@ -1,0 +1,133 @@
+
+version: v2.1
+modules:
+  - name: backbone
+    services:
+      - kafka-kraft
+      - kafka-connect
+      - kafka-connect-restart-tasks
+      - elasticsearch-data
+      - elasticsearch-master
+      - kibana
+  - name: authn-authz
+    services:
+      - redis
+      - ingress-nginx
+      - cert-manager
+      - zuul:v1.3.1-76bf31f-5
+  - name: core
+    dependencies:
+      - "backbone"
+      - "authn-authz"
+      - "frontend"
+    services:
+      - egovio/egov-accesscontrol:base-docker-upgrade-0aec2ff
+      - egovio/egov-enc-service-db:base-docker-upgrade-ce613c1
+      - egovio/egov-localization-db:redis-localization-key-5c0a4c4
+      - egovio/egov-idgen-db:base-docker-upgrade-ce613c1
+      - egovio/egov-filestore:security-patch-b62174b
+      - egovio/egov-indexer:base-docker-upgrade-ce613c1
+      - egovio/egov-notification-mail:base-docker-upgrade-ce613c1
+      - egovio/egov-notification-sms:base-docker-upgrade-80b0e96
+      - egovio/egov-otp-db:base-docker-upgrade-ce613c1
+      - egovio/egov-persister:master-3b238aa
+      ## - egovio/egov-url-shortening:v1.1.2-1715164454-3 not used in health now
+      - egovio/egov-user:base-docker-upgrade-userDeactivate-fix-bb2496f
+      - egovio/user-otp:base-docker-upgrade-ce613c1
+      - egovio/egov-workflow-v2-db:base-docker-upgrade-dd6a522
+      - egovio/audit-service:base-docker-upgrade-44e5f63
+      - egovio/error-handler:master-impel-dump-a28582d
+      - egovio/playground:2.0
+      - egovio/mdms-v2:base-docker-upgrade-ce613c1
+      - egovio/boundary-service:master-1e8d2bb
+  - name: business
+    dependencies:
+      - "core"
+    services:
+      - egovio/egov-hrms-db:hrms-boundary-0a4e737
+  - name: frontend
+    dependencies:
+      - "business"
+    services:
+      - egovio/digit-ui:health-dashboard-digit-ui-8a3b8bbd1b-850
+      - egovio/dashboard-ui:HCMPRE-3928-7685fda
+      - egovio/health-ui:health-dev-4789311325-559
+  - name: m_pgr             #PGR
+    dependencies:
+      - "core"
+      - "business"
+    services:
+      - egovio/pgr-services-db:master-620d748
+  - name: dss   #dss
+    dependencies:
+      - "frontend"
+      - "core"
+      - "business"
+    services:
+      - egovio/dashboard-ingest:develop-9ca69e70c4-4
+      - egovio/dashboard-analytics:analytics-raw-response-transform-mdmsMapping-8cad3be
+      - egovio/dss-dashboard:v1.8.0-0d70d60e63-53
+  - name: Other
+    dependencies:
+      - "core"
+      - "business"
+    services:
+      ## - egovio/egov-user-event:v1.2.0-c1e1e8ce24-21 not used currently in health
+  - name: m_health
+    dependencies:
+      - "backbone"
+      - "authn-authz"
+      - "core"
+      - "business"
+      - "dss"
+      - "Other"
+      - "frontend"
+      - "m_hcmconsole"
+    services:
+      - egovio/facility:hcmpre-3840-5d73a35
+      - egovio/product:feature-fhir-supplychain-262aea6
+      - egovio/individual:individualSVC-a6614a2
+      - egovio/transformer:chad-polio-changes-updated-ca0c415
+      - egovio/stock:master-nigeria-go-deep-2-f4a59b8
+      - egovio/household:HCMPRE-1870-errorHandlingForQueryIssues-34e8b4c
+      - egovio/project:hcmpre-3840-11d4425
+      - egovio/referralmanagement:master-nigeria-go-deep-2-f4a59b8
+      - egovio/health-attendance:nigeria-go-deep-78c40be
+      - egovio/service-request-db:base-docker-upgrade-0aec2ff
+      - egovio/health-muster-roll:nigeria-go-deep-78c40be
+      - egovio/health-expense:nigeria-go-deep-payments-expense-15b5a23
+      - egovio/health-expense-calculator:nigeria-go-deep-3fa1c21
+      - egovio/payments-ui:HCMPRE-3928-ce890e2
+      - egovio/pdf-service:pdf-service-security-fixes-1eacb70
+      - egovio/beneficiary-idgen:hcmpre-3840-5d73a35
+      - egovio/egov-notification-push:egov-notification-push-e12e436
+      - egovio/health-notification-service:egov-notification-push-e12e436
+      - egovio/worker-registry:master-nigeria-go-deep-2-2a12aa3
+      - egovio/fhiradapter:fhiradapter-30bae04
+      - egovio/fhir-supplychain-transformer:fhiradapter-d15e20c
+      - inbox:inbox-parallel-workflow-b5cd4a6
+  - name: m_hcmconsole
+    dependencies:
+      - "backbone"
+      - "authn-authz"
+      - "core"
+      - "m_health"
+      - "m_hcm_microplanning"
+    services:
+      - egovio/project-factory-db:nigeria-go-deep-2-userRetryCampaign-9aa5df5
+      - egovio/workbench-ui:master-37deada
+      - egovio/console:console-upgrade-d2e5f00
+      - egovio/excel-ingestion-db:master-nigeria-go-deep-2-fb85cab
+      - egovio/boundary-management:master-aa57e79
+  - name: m_hcm_microplanning
+    dependencies:
+      - "backbone"
+      - "authn-authz"
+      - "core"
+      - "m_hcmconsole"
+      - "m_health"
+    services:
+      - plan-service:master-5ada046-arm64
+      - resource-generator:master-5ada046-arm64
+      - census-service:master-5ada046-arm64
+      - microplan-ui:mp-de1253c58c-5

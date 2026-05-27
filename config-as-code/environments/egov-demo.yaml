@@ -115,6 +115,13 @@ cluster-configs:
               excel-ingestion: 'http://excel-ingestion.egov:8080/'
               boundary-management: 'http://boundary-management.egov:8080/'
               inbox-v2: 'http://inbox-v2.egov:8080/'
+              # v2.1 release: new services
+              fhiradapter: 'http://fhiradapter.egov:8080/'
+              fhir-supplychain-transformer: 'http://fhir-supplychain-transformer.egov:8080/'
+              egov-notification-push: 'http://egov-notification-push.egov:8080/'
+              health-notification-service: 'http://health-notification-service.egov:8080/'
+              worker-registry: 'http://worker-registry.egov:8080/'
+              console: 'http://console.egov:80/'
 
 
 employee:
@@ -355,7 +362,7 @@ egov-mdms-service:
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-mdms"   ##### Change repo url with Your fork Repo url
-      branch: "DEMO"                                        ##### Change repo branch with Your fork Repo branch
+      branch: "DEMO-v2.1"                                        ##### Change repo branch with Your fork Repo branch
   mdms-folder: "health-campaign-mdms"
   masters-config-url: "file:///work-dir/health-campaign-mdms/master-config.json"
   java-args: -Dspring.profiles.active=monitoring
@@ -366,7 +373,7 @@ egov-indexer:
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"        ##### Change repo url with Your fork Repo urls
-      branch: "DEMO"                                      ##### Change repo branch with Your fork Repo branches
+      branch: "DEMO-v2.1"                                      ##### Change repo branch with Your fork Repo branches
   egov-indexer-yaml-repo-path: "file:///work-dir/health-campaign-config/egov-indexer/error-queue.yml,file:///work-dir/health-campaign-config/egov-indexer/product-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/individual-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/household-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-task-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/stock-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/facility-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/project-staff-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/egov-error-queue-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/service-request-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/transformer-pgr-services.yml,file:///work-dir/health-campaign-config/egov-indexer/referral-management-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/census-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/plan-service-indexer.yml,file:///work-dir/health-campaign-config/egov-indexer/attendance-service-indexer.yml"
 
 egov-persister:
@@ -374,38 +381,38 @@ egov-persister:
   heap: '-Xmx256m -Xms256m'
   images:
     - egovio/egov-persister
-  persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-factory-persister.yml,file:///work-dir/health-campaign-config/egov-persister/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/census-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/plan-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/id-pool-persister.yml,file:///work-dir/health-campaign-config/egov-persister/id-pool-dispatch-log-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/excel-ingestion-persister.yml,file:///work-dir/health-campaign-config/egov-persister/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/expense-bill-payment-persister.yaml"
+  persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/hrms-employee-persister.yml,file:///work-dir/health-campaign-config/egov-persister/product-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-persister.yml,file:///work-dir/health-campaign-config/egov-persister/individual-persister.yml,file:///work-dir/health-campaign-config/egov-persister/household-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-task-persister.yml,file:///work-dir/health-campaign-config/egov-persister/stock-persister.yml,file:///work-dir/health-campaign-config/egov-persister/facility-persister.yml,file:///work-dir/health-campaign-config/egov-persister/service-request-persister.yml,file:///work-dir/health-campaign-config/egov-persister/pgr-services-persister.yml,file:///work-dir/health-campaign-config/egov-persister/egov-workflow-v2-persister.yml,file:///work-dir/health-campaign-config/egov-persister/mdms-persister.yml,file:///work-dir/health-campaign-config/egov-persister/referral-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/project-factory-persister.yml,file:///work-dir/health-campaign-config/egov-persister/attendance-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/irs-persister.yml,file:///work-dir/health-campaign-config/egov-persister/census-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/plan-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-persister.yml,file:///work-dir/health-campaign-config/egov-persister/id-pool-persister.yml,file:///work-dir/health-campaign-config/egov-persister/id-pool-dispatch-log-persister.yml,file:///work-dir/health-campaign-config/egov-persister/boundary-management-persister.yml,file:///work-dir/health-campaign-config/egov-persister/excel-ingestion-persister.yml,file:///work-dir/health-campaign-config/egov-persister/muster-service-persister.yml,file:///work-dir/health-campaign-config/egov-persister/expense-bill-payment-persister.yaml,file:///work-dir/health-campaign-config/egov-persister/notification-push-persister.yml,file:///work-dir/health-campaign-config/egov-persister/health-notification-persister.yml"
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "DEMO"                                    ##### Change repo branch with Your fork Repo branch
+      branch: "DEMO-v2.1"                                    ##### Change repo branch with Your fork Repo branch
 
 egov-data-uploader:
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "DEMO"                                    ##### Change repo branch with Your fork Repo branch
+      branch: "DEMO-v2.1"                                    ##### Change repo branch with Your fork Repo branch
 
 egov-searcher:
   search-yaml-path: ""
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"     ##### Change repo url with Your fork Repo url
-      branch: "DEMO"                                   ##### Change repo branch with Your fork Repo branch
+      branch: "DEMO-v2.1"                                   ##### Change repo branch with Your fork Repo branch
 
 dashboard-analytics:
   config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/dashboard-analytics/*.json"
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "DEMO"                                    ##### Change repo branch with Your fork Repo branch
+      branch: "DEMO-v2.1"                                    ##### Change repo branch with Your fork Repo branch
 
 dashboard-ingest:
   config-schema-paths: "file:///work-dir/health-campaign-config/egov-dss-dashboards/dashboard-ingest/*.json"
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"      ##### Change repo url with Your fork Repo url
-      branch: "DEMO"
+      branch: "DEMO-v2.1"
 
 # reportinfra >>>>>>>>>>>>>>>>>>>>>>>>>>>>>>
 report:
@@ -415,14 +422,14 @@ report:
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"     ##### Change repo url with Your fork Repo url
-      branch: "DEMO"                                   ##### Change repo branch with Your fork Repo branch
+      branch: "DEMO-v2.1"                                   ##### Change repo branch with Your fork Repo branch
   report-locationsfile-path: "file:///work-dir/health-campaign-config/reports/reportFileLocationsv1.txt"
 
 pdf-service:
   initContainers:
     gitSync:
       repo: "git@github.com:egovernments/health-campaign-config"     ##### Change repo url with Your fork Repo url
-      branch: "DEMO"                                   ##### Change repo branch with Your fork Repo branch
+      branch: "DEMO-v2.1"                                   ##### Change repo branch with Your fork Repo branch
   data-config-urls: "file:///work-dir/health-campaign-config/pdf-service/data-config/tradelicense-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/property-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/property-bill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tradelicense-bill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/firenoc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/pt-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tl-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/consolidatedbill.json,file:///work-dir/health-campaign-config/pdf-service/data-config/consolidatedreceipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlapplication.json,file:///work-dir/health-campaign-config/pdf-service/data-config/passvehicle-certificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-consolidatedacknowlegment.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-consolidatedsewerageconnection.json,file:///work-dir/health-campaign-config/pdf-service/data-config/buildingpermit.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ptmutationcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlrenewalcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/bpa-revocation.json,file:///work-dir/health-campaign-config/pdf-service/data-config/buildingpermit-low.json,file:///work-dir/health-campaign-config/pdf-service/data-config/misc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-applicationwater.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-sanctionletter.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-estimationnotice.json,file:///work-dir/health-campaign-config/pdf-service/data-config/ws-applicationsewerage.json,file:///work-dir/health-campaign-config/pdf-service/data-config/tlcertificate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/detailed-estimate.json,file:///work-dir/health-campaign-config/pdf-service/data-config/deviation-statement.json,file:///work-dir/health-campaign-config/pdf-service/data-config/measurement-book.json,file:///work-dir/health-campaign-config/pdf-service/data-config/fsm-receipt.json,file:///work-dir/health-campaign-config/pdf-service/data-config/pqm-adhoctest.json,file:///work-dir/health-campaign-config/works/pdf-service/data-config/analysis-statement.json,file:///work-dir/health-campaign-config/works/pdf-service/data-config/utilization-statement.json,file:///work-dir/health-campaign-config/pdf-service/data-config/health-bill-payment.json"
   format-config-urls: "file:///work-dir/health-campaign-config/pdf-service/format-config/tradelicense-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/property-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/property-bill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tradelicense-bill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/firenoc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/pt-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tl-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/consolidatedbill.json,file:///work-dir/health-campaign-config/pdf-service/format-config/consolidatedreceipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlapplication.json,file:///work-dir/health-campaign-config/pdf-service/format-config/passvehicle-certificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-consolidatedacknowlegment.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-consolidatedsewerageconnection.json,file:///work-dir/health-campaign-config/pdf-service/format-config/buildingpermit.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ptmutationcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlrenewalcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/bpa-revocation.json,file:///work-dir/health-campaign-config/pdf-service/format-config/buildingpermit-low.json,file:///work-dir/health-campaign-config/pdf-service/format-config/misc-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-applicationwater.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-sanctionletter.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-estimationnotice.json,file:///work-dir/health-campaign-config/pdf-service/format-config/ws-applicationsewerage.json,file:///work-dir/health-campaign-config/pdf-service/format-config/tlcertificate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/detailed-estimate.json,file:///work-dir/health-campaign-config/pdf-service/format-config/deviation-statement.json,file:///work-dir/health-campaign-config/pdf-service/format-config/measurement-book.json,file:///work-dir/health-campaign-config/pdf-service/format-config/fsm-receipt.json,file:///work-dir/health-campaign-config/pdf-service/format-config/pqm-adhoctest.json,file:///work-dir/health-campaign-config/works/pdf-service/format-config/analysis-statement.json,file:///work-dir/health-campaign-config/works/pdf-service/format-config/utilization-statement.json,file:///work-dir/health-campaign-config/pdf-service/format-config/health-bill-payment.json"
 
@@ -975,4 +982,40 @@ es-curator:
   logs-cleanup-enabled: "true"
   jaeger-cleanup-enabled: "true"
   logs-to-retain: "7"
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
+
+# <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<< v2.1 Release - New / Renamed Services
+
+egov-notification-push:
+  replicas: 1
+  heap: '-Xmx256m -Xms128m'
+  memory_limits: 384Mi
+
+health-notification-service:
+  replicas: 1
+  heap: '-Xmx256m -Xms128m'
+  memory_limits: 384Mi
+
+fhiradapter:
+  replicas: 1
+  heap: '-Xmx256m -Xms128m'
+  memory_limits: 384Mi
+
+fhir-supplychain-transformer:
+  replicas: 1
+  heap: '-Xmx256m -Xms128m'
+  memory_limits: 384Mi
+
+worker-registry:
+  central-instance-name: egov
+  central-instance-build: true
+  central-instance-enabled: false
+  replicas: 1
+  heap: '-Xmx512m -Xms256m'
+  memory_limits: 512Mi
+
+console:
+  replicas: 1
+  heap: '-Xmx256m -Xms128m'
+  memory_limits: 384Mi
 # <<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<<
