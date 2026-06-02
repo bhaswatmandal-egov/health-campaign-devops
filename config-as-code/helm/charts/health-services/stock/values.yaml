@@ -29,6 +29,7 @@ appType: "java-spring"
 tracing-enabled: true
 heap: "-Xmx192m -Xms192m"
 java-args: ""
+java-enable-debug: false
 persist-yml-path: "file:///work-dir/health-campaign-config/egov-persister/stock-persister.yml"
 indexer-yml-path: "file:///work-dir/health-campaign-config/egov-indexer/stock-indexer.yml"
 
@@ -170,3 +171,7 @@ env: |
   - name: EGOV.MDMS.MASTER.NAME
   - name: EGOV.MDMS.INTEGRATION.ENABLED
     value: "false"
+  - name: EGOV.MDMS.INTEGRATION.ENABLED
+    value: "false"
+  - name: EGOV_MDMS_PATH_NAME
+    value: "/egov-mdms-service/v1/_search"

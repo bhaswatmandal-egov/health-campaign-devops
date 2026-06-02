@@ -43,11 +43,17 @@ cluster-configs:
       namespace: egov
       name: egov-notification-sms
 
-    egov-filestore: 
+    egov-filestore:
       namespace: egov
-      name: egov-filestore     
-      
-    egov-location: 
+      name: egov-filestore
+
+    egov-malware-detection:
+      namespace: [ egov ]
+      name: egov-malware-detection
+      # slack-webhook-url and mail-alert-recipients are supplied via the secrets
+      # environment override file; the secret only renders when slack-webhook-url is set.
+
+    egov-location:
       namespace: egov
       name: egov-location
 

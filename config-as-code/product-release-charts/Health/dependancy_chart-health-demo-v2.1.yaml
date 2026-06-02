@@ -26,6 +26,7 @@ modules:
       - egovio/egov-localization-db:redis-localization-key-5c0a4c4
       - egovio/egov-idgen-db:base-docker-upgrade-ce613c1
       - egovio/egov-filestore:security-patch-b62174b
+      - egovio/egov-malware-detection:2.9.4-malware-detection-master-d07ae66
       - egovio/egov-indexer:base-docker-upgrade-ce613c1
       - egovio/egov-notification-mail:base-docker-upgrade-ce613c1
       - egovio/egov-notification-sms:base-docker-upgrade-80b0e96
@@ -82,7 +83,6 @@ modules:
       - "dss"
       - "Other"
       - "frontend"
-      - "m_hcmconsole"
     services:
       - egovio/facility:hcmpre-3840-5d73a35
       - egovio/product:feature-fhir-supplychain-262aea6
@@ -116,7 +116,6 @@ modules:
     services:
       - egovio/project-factory-db:nigeria-go-deep-2-userRetryCampaign-9aa5df5
       - egovio/workbench-ui:master-37deada
-      - egovio/console:console-upgrade-d2e5f00
       - egovio/excel-ingestion-db:master-nigeria-go-deep-2-fb85cab
       - egovio/boundary-management:master-aa57e79
   - name: m_hcm_microplanning

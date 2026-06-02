@@ -129,3 +129,45 @@ env: |
   {{- end }}
   - name: IS_HEALTH_CONTEXT_ENABLED
     value: "true"
+  - name: WORKS_PROJECT_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: health-project
+  - name: WORKS_PROJECT_STAFF_ENDPOINT
+    value: "health-project/v1/_search"
+  - name: SPRING_DATA_REDIS_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: redis-host-worker
+  - name: EXPENSE_V2_PERIODIC_BILLING_ENABLED
+    value: {{ index .Values "expense-v2-periodic-billing-enabled" | default "false" | quote }}
+  - name: EXPENSE_KAFKA_TENANT_ID_PATTERN
+    valueFrom:
+      configMapKeyRef:
+        name: egov-config
+        key: kafka-tenant-id-pattern
+  - name: TASK_SCHEDULER-BOOTSTRAP_TENANTS
+    value: {{ index .Values "task-scheduler-bootstrap-tenants" | default "dev" | quote}}
+  - name: TASK_SCHEDULER_BOOTSTRAP_TENANTS
+    value: {{ index .Values "task-scheduler-bootstrap-tenants" | default "dev" | quote}}
+  - name: WORKS_WORKER_REGISTRY_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: worker-registry-host
+  - name: WORKS_WORKER_REGISTRY_ENDPOINT
+    value: "/worker/v1/_search"
+  - name: WORKS_WORKER_REGISTRY_SEARCH_PAGE_SIZE
+    value: "100"
+  - name: EGOV_FILESTORE_HOST
+    valueFrom:
+      configMapKeyRef:
+        name: egov-service-host
+        key: egov-filestore
+  - name: MTN_API_MOCK_ENABLED
+    value: {{ index .Values "mtn-api-mock-enabled" | default "true" | quote }}
+  - name: REPORT_GENERATION_TRIGGER_TOPIC
+    value: {{ index .Values "report-generation-trigger-topic" | quote}}
+
